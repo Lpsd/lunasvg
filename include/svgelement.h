@@ -4,9 +4,16 @@
 #include <string>
 #include <memory>
 
+#include "export.h"
+
 namespace lunasvg {
 
-class Bitmap
+enum class ColorFormat {
+    BGRA,
+    RGBA
+};
+
+class LUNASVG_API Bitmap
 {
 public:
     /**
@@ -14,7 +21,7 @@ public:
      */
     Bitmap();
     Bitmap(std::uint8_t* data, std::uint32_t width, std::uint32_t height, std::uint32_t stride);
-    Bitmap(std::uint32_t width, std::uint32_t height);
+    Bitmap(std::uint32_t width, std::uint32_t height, ColorFormat colorFormat = ColorFormat::BGRA);
 
     void reset(std::uint8_t* data, std::uint32_t width, std::uint32_t height, std::uint32_t stride);
     void reset(std::uint32_t width, std::uint32_t height);
@@ -23,6 +30,7 @@ public:
     std::uint32_t width() const;
     std::uint32_t height() const;
     std::uint32_t stride() const;
+    ColorFormat colorFormat() const;
 
 private:
     struct Impl;
@@ -52,7 +60,7 @@ enum InsertPosition
 
 class SVGDocument;
 
-class SVGElement
+class LUNASVG_API SVGElement
 {
 public:
     /**
